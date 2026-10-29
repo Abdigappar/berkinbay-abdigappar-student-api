@@ -1,0 +1,10 @@
+.git
+.gradle
+build
+logs
+backups
+scripts
+.env
+*.md
+Jenkinsfile
+docker-compose.yml

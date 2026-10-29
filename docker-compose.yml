@@ -1,0 +1,51 @@
+# Docker Compose - Berkinbay Abdigappar (ID 37409)
+# Start: docker compose up -d --build
+name: berkinbay-abdigappar-student-api
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: berkinbay-abdigappar-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-berkinbay_abdigappar_db}
+      POSTGRES_USER: ${POSTGRES_USER:-berkinbay}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in the .env file}
+    volumes:
+      - berkinbay_abdigappar_pgdata:/var/lib/postgresql/data
+    networks:
+      - berkinbay-abdigappar-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: berkinbay-abdigappar-student-api:${APP_TAG:-v1.0-berkinbay-abdigappar}
+    container_name: berkinbay-abdigappar-app
+    environment:
+      # "postgres" is the Compose service name; Docker DNS resolves it to the DB container
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-berkinbay_abdigappar_db}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-berkinbay}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in the .env file}
+      STUDENT_NAME: "Berkinbay Abdigappar"
+    ports:
+      - "${APP_PORT:-8081}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - berkinbay-abdigappar-net
+    restart: unless-stopped
+
+volumes:
+  berkinbay_abdigappar_pgdata:
+
+networks:
+  berkinbay-abdigappar-net:
+    driver: bridge
