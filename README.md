@@ -4,7 +4,7 @@
 **Student ID:** 37409
 **Course:** DevOps - midterm project
 
-Status: CRUD API ready for Docker and Jenkins
+Status: CRUD API ready for Docker and Jenkins, documentation updated by Berkinbay Abdigappar
 
 ## About
 
