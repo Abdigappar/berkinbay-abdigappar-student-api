@@ -50,7 +50,7 @@ class StudentControllerTest {
     void rootPageShowsStudentName() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.student").value("Berkinbay Abdigappar"))
+                .andExpect(jsonPath("$.student").value("Wrong Name"))
                 .andExpect(jsonPath("$.studentId").value("37409"));
     }
 
