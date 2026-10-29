@@ -4,7 +4,7 @@
 **Student ID:** 37409
 **Course:** DevOps - midterm project
 
-Status: initial version of the project
+Status: CRUD API ready for Docker and Jenkins
 
 ## About
 
