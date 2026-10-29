@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,6 +33,12 @@ public class StudentController {
     @GetMapping
     public List<Student> getAll() {
         return service.findAll();
+    }
+
+    /** GET /api/berkinbay-abdigappar/students/search?lastName=Berkinbay */
+    @GetMapping("/search")
+    public List<Student> searchByLastName(@RequestParam String lastName) {
+        return service.findByLastName(lastName);
     }
 
     @GetMapping("/{id}")
