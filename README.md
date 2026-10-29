@@ -61,3 +61,4 @@ Tests: `./gradlew test`
 Docker image: `berkinbay-abdigappar-student-api:v1.0-berkinbay-abdigappar`
 
 ## Changes
+- Added GET /api/berkinbay-abdigappar/students/search?lastName=... - search students by last name (Berkinbay Abdigappar)

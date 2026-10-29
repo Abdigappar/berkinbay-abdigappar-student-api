@@ -76,6 +76,17 @@ class StudentControllerTest {
     }
 
     @Test
+    void searchesStudentsByLastName() throws Exception {
+        repository.save(abdigappar());
+        repository.save(new Student("Test", "Student", "test.student.37409@example.com", "DevOps-37409", 2));
+
+        mockMvc.perform(get(BASE + "/search").param("lastName", "berkinbay"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].firstName").value("Abdigappar"));
+    }
+
+    @Test
     void returnsStudentById() throws Exception {
         Student saved = repository.save(abdigappar());
 

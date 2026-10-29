@@ -26,6 +26,12 @@ public class StudentService {
         return repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
+    /** Feature by Berkinbay Abdigappar: find students by last name (case-insensitive). */
+    @Transactional(readOnly = true)
+    public List<Student> findByLastName(String lastName) {
+        return repository.findByLastNameIgnoreCase(lastName.trim());
+    }
+
     @Transactional
     public Student create(Student student) {
         student.setId(null); // the database assigns the id
